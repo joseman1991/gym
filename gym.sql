@@ -30,7 +30,8 @@ create table usuarios(
  on update cascade on delete restrict 
 );
 -- -----------------------------------------------------------------
-insert into usuarios(email,clave,nombre,apellido,idperfil) values('leoAdmin@gmail.com','123','LEO','L',1);
+insert into usuarios(email,clave,nombre,apellido,idperfil) values('leoAdmin@gmail.com','12345','LEO','L',1);
+insert into usuarios(email,clave,nombre,apellido,idperfil) values('leoEntrenador@gmail.com','12345','Entrnador','Entrena',3);
 
 
  

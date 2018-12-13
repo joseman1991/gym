@@ -82,6 +82,7 @@ public class UsuarioDAO extends ConexionMySQL {
         sentencia.setString(2, user.getClave());
         resultado = sentencia.executeQuery();
         if (resultado.next()) {
+            System.out.println("aqui estoy");
             int i = 1;
             user.setIdusuario(resultado.getInt(i++));
             user.setEmail(resultado.getString(i++));

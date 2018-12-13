@@ -3,9 +3,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html class="no-js">
     <head>
+        <s:set name="user" value="#session['usuario']"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Mobile Specific Meta -->
-
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Favicon-->
         <link rel="shortcut icon" href="img/fav.png">
@@ -16,7 +16,7 @@
         <!-- Meta Keyword -->
         <meta name="keywords" content="">
         <!-- meta character set -->
-        <meta charset="UTF-8">
+
         <!-- Site Title -->
         <title>Gym</title>
 
@@ -44,12 +44,20 @@
                             <a class="contact-texts" href="mailto:support@colorlib.com">support@colorlib.com</a>		
                         </div>
                         <div class="col-md-4 col-4 header-top-bottom no-padding">
-                            <a href="index.html"><img class="img-fluid" src="img/logo.png" alt="" title="" /></a>			
+                            <a href="index.jsp"><img class="img-fluid" src="img/logo.png" alt="" title="" /></a>			
                         </div>                      
 
                         <div class="col-md-4 col-4 header-top-right no-padding">
-                            <a class="contact-texts" href="tel:+440 123 12 658 439">Iniciar Sesión</a>
-                            <a href="tel:+440 123 12 658 439"><span class="lnr lnr-arrow-right-circle"></span></a>
+                            <s:if test="#user!=null">
+                                <a class="contact-texts" href="logout.jsp">Cerrar Sesión</a>
+                                <a href="logout.jsp"><span class="lnr lnr-arrow-left-circle"></span></a>
+                                </s:if>
+                                <s:else>
+                                <a class="contact-texts" href="login.jsp">Iniciar Sesión</a>
+                                <a href="login.jsp"><span class="lnr lnr-arrow-right-circle"></span></a>
+                                </s:else>
+
+
                         </div>
                     </div>			  					
                 </div>
@@ -63,6 +71,11 @@
                             <li><a href="services.jsp">servicios</a></li>
                             <li><a href="index.jsp">Entrenadores</a></li>
                             <li><a href="index.jsp">Contactos</a></li>
+                                <s:if test="#user!=null">
+                                <li><a href="#">Hola, <s:property value="#user.nombre"/></a></li>
+                                <li><a href="#">Perfil: <s:property value="#user.perfil.descripcion"/></a></li>
+                                </s:if>
+
                         </ul>
                     </nav><!-- #nav-menu-container -->		
                 </div>
@@ -80,9 +93,15 @@
                             Cuerpo Perfecto			
                         </h1>
                         <p class="pt-10 pb-10 text-white">
-                            El gimnasio se encuentra en Jujan y tiene mÃ¡s de 30 mÃ¡quinas. Con 13 remontes de Ãºltima generaciÃ³n y una selecciÃ³n de opciones tanto para fisiculturistas como para deportistas.
+                            El gimnasio se encuentra en Jujan y tiene más de 30 máquinas. Con 13 remontes de última generación y una selección de opciones tanto para fisiculturistas como para deportistas.
                         </p>
-                        <a href="#" class="primary-btn">Hazte miembro</a>
+                        <s:if test="#user!=null">
+
+                        </s:if>
+                        <s:else>
+                            <a href="registro.jsp" class="primary-btn">Hazte miembro</a>
+                        </s:else>
+
                     </div>										
                 </div>
             </div>					
@@ -101,11 +120,11 @@
                         <div class="single-carusel item">
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c1.jpg" alt="">
-                                <div class="join-btn"><a href="#">Ãnete ahora</a></div>
+                                <div class="join-btn"><a href="#">Únete ahora</a></div>
                             </div>
                             <div class="title-price d-flex justify-content-between">
                                 <a href="#">
-                                    <h4>MÃºsculo especÃ­fico del objetivo.</h4>
+                                    <h4>Músculo específico del objetivo.</h4>
                                 </a>
                                 <h4 class="price">$275</h4>
                             </div>
@@ -113,7 +132,7 @@
                         <div class="single-carusel item">
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c2.jpg" alt="">
-                                <div class="join-btn"><a href="#">Ãnete ahora</a></div>
+                                <div class="join-btn"><a href="#">Únete ahora</a></div>
                             </div>
                             <div class="title-price d-flex justify-content-between">
                                 <a href="#">
@@ -125,7 +144,7 @@
                         <div class="single-carusel item">
                             <div class="thumb">
                                 <img class="img-fluid" src="img/c3.jpg" alt="">
-                                <div class="join-btn"><a href="#">Ãnete ahora</a></div>
+                                <div class="join-btn"><a href="#">Únete ahora</a></div>
                             </div>
                             <div class="title-price d-flex justify-content-between">
                                 <a href="#">
@@ -167,7 +186,7 @@
         <section class="feature-area section-gap">
             <div class="container">
                 <div class="row section-title">
-                    <h1>Nuestras caracterÃ­sticas de primera categorÃ­a</h1>
+                    <h1>Nuestras características de primera categoría</h1>
                     <p>En la ciudad de Babahoyo, Jujan estamos localizados</p>
                 </div>						
                 <div class="row justify-content-between align-items-center">
@@ -182,7 +201,7 @@
                             </p>
                         </div>
                         <div class="single-feature">
-                            <h4>Maquinas de alta generaciÃ³n</h4>
+                            <h4>Maquinas de alta generación</h4>
                             <p>
                                 Nuestras maquinas son las mejores
                             </p>
@@ -204,7 +223,7 @@
             <div class="overlay overlay-bg"></div>				
             <div class="container">
                 <div class="row section-title relative">
-                    <h1 class="text-white">Calcule su Ã­ndice de masa corporal</h1>
+                    <h1 class="text-white">Calcule su índice de masa corporal</h1>
                     <p class="text-white">Formulario</p>
                 </div>					
                 <div class="row justify-content-center align-items-center">
@@ -237,8 +256,8 @@
         <section class="image-gallery-area section-gap">
             <div class="container">
                 <div class="row section-title">
-                    <h1>GalerÃ­a de imÃ¡genes que nos gusta compartir.</h1>
-                    <p>Quienes estÃ¡n extremadamente enamorados de su entrenamiento.</p>
+                    <h1>Galería de imágenes que nos gusta compartir.</h1>
+                    <p>Quienes están extremadamente enamorados de su entrenamiento.</p>
                 </div>					
                 <div class="row">
                     <div class="col-lg-4 single-gallery">
@@ -267,7 +286,7 @@
             <div class="container">
                 <div class="row">
                     <div class="call-wrap mx-auto">
-                        <h1>Nunca es tarde para empezar, Ãºnete a nosotros hoy!</h1>
+                        <h1>Nunca es tarde para empezar, únete a nosotros hoy!</h1>
                         <p>
                             Te esperamos
                         </p>

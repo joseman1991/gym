@@ -1,0 +1,24 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- Author: JOSE -->
+ 
+<struts>
+    <package name="dafault" namespace="/" extends="struts-default">
+        <action name="registrar" class="acciones.UsuarioAction" method="insertarUsuario">
+            <result name="success">registro.jsp</result>
+            <result name="error">error.jsp</result>
+        </action>
+        
+        <action name="check" class="acciones.UsuarioAction" method="login">
+            <result name="success" type="redirectAction">inicio</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        
+    </package>
+    
+    
+    
+</struts>
