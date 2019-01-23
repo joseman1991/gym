@@ -36,39 +36,7 @@
 
     </head>
     <body>	
-        <header id="header">
-             <div class="header-top">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-4 col-4 header-top-left no-padding">
-                            <a href="mailto:support@colorlib.com"><span class="lnr lnr-location"></span></a>
-                            <a class="contact-texts" href="mailto:support@colorlib.com">support@colorlib.com</a>		
-                        </div>
-                        <div class="col-md-4 col-4 header-top-bottom no-padding">
-                            <a href="index.jsp"><img class="img-fluid" src="img/logo.png" alt="" title="" /></a>			
-                        </div>                      
-
-                        <div class="col-md-4 col-4 header-top-right no-padding">
-                            <a class="contact-texts" href="login.jsp">Iniciar Sesión</a>
-                            <a href="login.jsp"><span class="lnr lnr-arrow-right-circle"></span></a>
-                        </div>
-                    </div>			  					
-                </div>
-            </div>
-            <div class="container main-menu">
-                <div class="row align-items-center justify-content-center">	
-                    <nav id="nav-menu-container">
-                        <ul class="nav-menu">
-                            <li class="menu-active"><a href="index.jsp">Inicio</a></li>
-                            <li><a href="index.jsp">Acerca de</a></li>
-                            <li><a href="services.jsp">servicios</a></li>
-                            <li><a href="index.jsp">Entrenadores</a></li>
-                            <li><a href="index.jsp">Contactos</a></li>
-                        </ul>
-                    </nav><!-- #nav-menu-container -->		
-                </div>
-            </div>
-        </header><!-- #header -->
+        <jsp:include page="header.jsp"/>
 
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
@@ -82,8 +50,7 @@
                         </h1>
                         <p class="pt-10 pb-10 text-white">
                             El gimnasio se encuentra en Jujan y tiene más de 30 máquinas. Con 13 remontes de última generación y una selección de opciones tanto para fisiculturistas como para deportistas.
-                        </p>
-                        <a href="registro.jsp" class="primary-btn">Hazte miembro</a>
+                        </p>                        
                     </div>										
                 </div>
             </div>					

@@ -8,13 +8,61 @@
     <package name="dafault" namespace="/" extends="struts-default">
         <action name="registrar" class="acciones.UsuarioAction" method="insertarUsuario">
             <result name="success">registro.jsp</result>
-            <result name="error">error.jsp</result>
+            <result name="error">registro.jsp</result>
         </action>
+        
+        <action name="registrarA" class="acciones.UsuarioAction" method="insertarUsuario">
+            <result name="success">registroAdmin.jsp</result>
+            <result name="error">registroAdmin.jsp</result>
+        </action>
+        
+        <action name="actualizaruser" class="acciones.UsuarioAction" method="actualizarUser">
+            <result name="success">listausuarios.jsp</result>
+            <result name="error">error.jsp</result>            
+        </action>
+        
+        <action name="buscar" class="acciones.UsuarioAction" method="buscarUsers">
+            <result name="success">listausuarios.jsp</result>
+            <result name="error">error.jsp</result>            
+        </action>
+        
+        <action name="actualizaruserL" class="acciones.UsuarioAction" method="actualizarUser">
+            <result name="userlog">actualizalog.jsp</result>
+            <result name="error">login.jsp</result>        
+        </action>
+        
+        <action name="actualizaclave" class="acciones.UsuarioAction" method="actualizarUsuario">
+            <result name="success">clave.jsp</result>
+            <result name="error">clave.jsp</result>        
+        </action>
+        
+        
         
         <action name="check" class="acciones.UsuarioAction" method="login">
             <result name="success" type="redirectAction">inicio</result>
             <result name="error">login.jsp</result>
         </action>
+        
+         
+        
+    </package>
+    
+    
+    <package name="dinamico" extends="json-default" >
+        <interceptors>
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="json">
+                    <param name="enableSMD">true</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="defaultStack" />
+        
+        <action name="obtenerUser" class="acciones.UsuarioAction" method="obteneruser">
+            <result name="success" type="json"></result>
+            <result name="error" type="json"></result>   
+        </action>    
+       
         
         
     </package>

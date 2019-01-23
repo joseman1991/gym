@@ -1,139 +1,116 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this license header,choose License Headers in Project Properties.
+ * To change this template file,choose Tools | Templates
  * and open the template in the editor.
  */
 package dataBase;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author
  */
-public class UsuarioDAO extends ConexionMySQL {
-
-    private final List<Usuarios> listaUsuarios;
+public class UsuarioDAO extends ConexionMySQL<Usuarios> {
 
     public UsuarioDAO() {
-        listaUsuarios = new ArrayList<>();
+        super();
+        tabla = Usuarios.class.getSimpleName();
+        tipo = Usuarios.class;
     }
 
-    public UsuarioDAO(List<Usuarios> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
-    }
-
-    public void obtenerLista(Usuarios u) throws SQLException {
-        abrirConexion();
-        listaUsuarios.clear();
-        sentencia = conexion.prepareStatement("select * from usuarios where idusuario<>?");
-        sentencia.setInt(1, u.getIdusuario());
-        resultado = sentencia.executeQuery();
-        while (resultado.next()) {
-            Usuarios user = new Usuarios();
-            int i = 1;
-            user.setIdusuario(resultado.getInt(i++));
-            user.setEmail(resultado.getString(i++));
-            user.setClave(resultado.getString(i++));
-            user.setNombre(resultado.getString(i++));
-            user.setApellido(resultado.getString(i++));
-            user.setIdperfil(resultado.getInt(i++));
-            listaUsuarios.add(user);
-        }
+    public Usuarios login(Usuarios usuario) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "email,clave";
+        condicion = "where  email=? and clave=?";
+        usuario = super.obtenerRegistro(usuario);
         cerrarConexion();
+        return usuario;
     }
-
-    public int insertarUsuario(Usuarios usuario) throws SQLException {
-        abrirConexion();
-        sentencia = conexion.prepareStatement("insert into usuarios(email,clave,nombre,apellido,idperfil) values (?,?,?,?,?)");
-        int i = 1;
-        sentencia.setString(i++, usuario.getEmail());
-        sentencia.setString(i++, usuario.getClave());
-        sentencia.setString(i++, usuario.getNombre());
-        sentencia.setString(i++, usuario.getApellido());       
-          sentencia.setInt(i++, usuario.getIdperfil());
-          System.out.println("sentencia "+sentencia);
-        int result = sentencia.executeUpdate();
+    
+    public Usuarios obtenerUser(Usuarios usuario) throws SQLException {
+        campos = "idusuario,nombre1,nombre2,apellido1,apellido2";
+        camposCondicion = "idusuario,clave";
+        condicion = "where  idusuario=? and clave=?";
+        usuario = super.obtenerRegistro(usuario);
         cerrarConexion();
-        return result;
+        return usuario;
     }
 
-    public int actualizarUsuario(Usuarios usuario) throws SQLException {
-        abrirConexion();
-        sentencia = conexion.prepareStatement("update usuarios set email=?,clave=?,nombre=?,apellido=?,idperfil=? where idusuario=?");
-        int i = 1;
-        sentencia.setString(i++, usuario.getEmail());
-        sentencia.setString(i++, usuario.getClave());
-        sentencia.setString(i++, usuario.getNombre());
-        sentencia.setString(i++, usuario.getApellido());
-        sentencia.setInt(i++, usuario.getIdperfil());
-        sentencia.setInt(i++, usuario.getIdusuario());        
-        int result = sentencia.executeUpdate();
+    // campos = "idusuario,email,clave,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+    @Override
+    public Usuarios obtenerRegistro(Usuarios usuario) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "idusuario";
+        condicion = "where idusuario=?";
+        usuario = super.obtenerRegistro(usuario);
+        cerrarConexion();
+        return usuario;
+    }
+
+    public Usuarios obtenerUsuariosEmail(Usuarios usuario) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "email";
+        condicion = "where email=?";
+        usuario = super.obtenerRegistro(usuario);
+        cerrarConexion();
+        return usuario;
+    }
+
+    @Override
+    public int insertarRegistro(Usuarios user) throws SQLException {
+        campos = "email,clave,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil";
+        int result = super.insertarRegistro(user);
         cerrarConexion();
         return result;
     }
 
-    public Usuarios obtenerUsusario(Usuarios user) throws SQLException {
-        abrirConexion();
-        sentencia = conexion.prepareStatement("select * from usuarios where  email=? and clave=?");
-        sentencia.setString(1, user.getEmail());
-        sentencia.setString(2, user.getClave());
-        resultado = sentencia.executeQuery();
-        if (resultado.next()) {
-            System.out.println("aqui estoy");
-            int i = 1;
-            user.setIdusuario(resultado.getInt(i++));
-            user.setEmail(resultado.getString(i++));
-            user.setClave(resultado.getString(i++));
-            user.setNombre(resultado.getString(i++));
-            user.setApellido(resultado.getString(i++));
-            user.setIdperfil(resultado.getInt(i++));
+    @Override
+    public void obtenerLista(List<Usuarios> lista, Usuarios dato) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "idestado";
+        if (dato.getIdestado() == 2) {
+            condicion = "where idestado>=?";
         } else {
-            user = null;
+            condicion = "where idestado=?";
         }
+        super.obtenerLista(lista, dato);
         cerrarConexion();
-        return user;
+    }
+    
+    public void buscar(List<Usuarios> lista, Usuarios dato) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "idestado, email, nombre1,nombre2, apellido1, apellido2,telefono";
+        if (dato.getIdestado() == 2) {
+            condicion = "where idestado>=? and (email like ? or nombre1 like ? or nombre2 like ? or apellido1 like ? or apellido2 like ? or telefono like ?)";
+        } else {
+            condicion = "where idestado=? and (email like ? or nombre1 like ? or nombre2 like ? or apellido1 like ? or apellido2 like ? or telefono like ?) ";
+        }
+        super.obtenerLista(lista, dato);
+        cerrarConexion();
     }
 
-    public Usuarios obtenerUsusario(int idusuario) throws SQLException {
-        Usuarios user = null;
-        abrirConexion();
-        sentencia = conexion.prepareStatement("select * from usuarios where idusuario=? ");
-        sentencia.setInt(1, idusuario);
-        resultado = sentencia.executeQuery();
-        if (resultado.next()) {
-            user = new Usuarios();
-            int i = 1;
-            user.setIdusuario(resultado.getInt(i++));
-            user.setEmail(resultado.getString(i++));
-            user.setClave(resultado.getString(i++));
-            user.setNombre(resultado.getString(i++));
-            user.setApellido(resultado.getString(i++));
-            user.setIdperfil(resultado.getInt(i++));
-        }
+    @Override
+    public int actualizarRegistro(Usuarios registro) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "idusuario";
+        condicion = "where idusuario=?";
+        System.out.println("modelo " + registro.getFullname());
+        int result = super.actualizarRegistro(registro);
         cerrarConexion();
-        return user;
+        return result;
     }
-    public Usuarios obtenerUsusario(String email) throws SQLException {
-        Usuarios user = null;
-        abrirConexion();
-        sentencia = conexion.prepareStatement("select * from usuarios where email=? ");
-        sentencia.setString(1, email);
-        resultado = sentencia.executeQuery();
-        if (resultado.next()) {
-            user = new Usuarios();
-            int i = 1;
-            user.setIdusuario(resultado.getInt(i++));
-            user.setEmail(resultado.getString(i++));
-            user.setClave(resultado.getString(i++));
-            user.setNombre(resultado.getString(i++));
-            user.setApellido(resultado.getString(i++));
-            user.setIdperfil(resultado.getInt(i++));
-        }
+
+    
+
+    public int actualizarClave(Usuarios registro) throws SQLException {
+        campos = "clave";
+        camposCondicion = "idusuario";
+        condicion = "where idusuario=?";        
+        int result = super.actualizarRegistro(registro);
         cerrarConexion();
-        return user;
+        return result;
     }
 
 }

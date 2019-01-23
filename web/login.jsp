@@ -38,41 +38,9 @@
     </head>
     <body>	
         <s:if test="#user!=null">
-            <% response.sendRedirect("inicio"); %>
+            <% response.sendRedirect("inicio");%>
         </s:if>
-        <header id="header">
-            <div class="header-top">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-4 col-4 header-top-left no-padding">
-                            <a href="mailto:support@colorlib.com"><span class="lnr lnr-location"></span></a>
-                            <a class="contact-texts" href="mailto:support@colorlib.com">support@colorlib.com</a>		
-                        </div>
-                        <div class="col-md-4 col-4 header-top-bottom no-padding">
-                            <a href="index.jsp"><img class="img-fluid" src="img/logo.png" alt="" title="" /></a>			
-                        </div>                      
-
-                        <div class="col-md-4 col-4 header-top-right no-padding">
-                            <a class="contact-texts" href="login.jsp">Iniciar Sesión</a>
-                            <a href="login.jsp"><span class="lnr lnr-arrow-right-circle"></span></a>
-                        </div>
-                    </div>			  					
-                </div>
-            </div>
-            <div class="container main-menu">
-                <div class="row align-items-center justify-content-center">	
-                    <nav id="nav-menu-container">
-                        <ul class="nav-menu">
-                            <li class="menu-active"><a href="index.jsp">Inicio</a></li>
-                            <li><a href="index.jsp">Acerca de</a></li>
-                            <li><a href="services.jsp">servicios</a></li>
-                            <li><a href="index.jsp">Entrenadores</a></li>
-                            <li><a href="index.jsp">Contactos</a></li>
-                        </ul>
-                    </nav><!-- #nav-menu-container -->		
-                </div>
-            </div>
-        </header><!-- #header -->
+        <jsp:include page="header.jsp"/>
 
         <!-- start banner Area -->
         <section class="banner-area relative about-banner" id="home">	
@@ -91,8 +59,14 @@
         <!-- End banner Area -->	
 
 
-        <div class="container col-lg-4 col-lg-offset-4">
+        <div class="container col-lg-4 col-lg-offset-4 mt-20">
             <h3 class="mb-30">Iniciar sesión</h3>
+            <s:if test="mensaje!=null">
+                <div class="alert <s:property value="style"/> alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>¡<s:property value="estado"/>!</strong> <s:property value="mensaje"/>.
+                </div>
+            </s:if>  
             <form class="generic-blockquote" action="check" method="post">               
 
                 <div class="mt-10">
@@ -104,8 +78,7 @@
                 <br>
                 <div class="form-group">
                     <input type="submit" name="submit" class="genric-btn primary circle" value="Iniciar sesión">
-                </div>  
-                <h5><s:property value="mensaje"/></h5>
+                </div>
             </form>
         </div>
         <!-- start footer Area -->		

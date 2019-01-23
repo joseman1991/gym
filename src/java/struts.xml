@@ -10,6 +10,40 @@
             <result name="success">index.jsp</result>
             <result name="error">error.jsp</result>
         </action> 
+        
+        <action name="registroAdmin" class="acciones.UsuarioAction">
+            <result name="success">registroAdmin.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        <action name="activos">
+            <result type="redirectAction">
+                <param name="actionName">listausers</param>
+                <param name="idestado">1</param>
+            </result>
+        </action>
+        
+        <action name="inactivos">
+           <result type="redirectAction">
+                <param name="actionName">listausers</param>
+                <param name="idestado">2</param>
+            </result>
+        </action>
+        
+        <action name="listausers" class="acciones.UsuarioAction" method="obtenerUsuarios">
+            <result name="success">listausuarios.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        <action name="confirmaactualiza" class="acciones.UsuarioAction" method="obtenerUsuario">
+            <result name="success">actualiza.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        <action name="confirmaactualizar" class="acciones.UsuarioAction" method="obtenerUsuario">
+            <result name="success">actualizalog.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
     </package>
 </struts>
  

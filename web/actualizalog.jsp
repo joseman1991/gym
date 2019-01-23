@@ -32,17 +32,13 @@
         <link rel="stylesheet" href="css/owl.carousel.css">			
         <link rel="stylesheet" href="css/jquery-ui.css">			
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/estilo.css">
-
+        <link rel="stylesheet" href="css/estilo.css">       
     </head>
-    <body>	
-        <jsp:include page="header.jsp"/>
-        <s:if test="#user!=null">
+    <body>	    
+        <jsp:include page="header.jsp"/> 
+        <s:if test="#user==null">
             <% response.sendRedirect("inicio");%>
         </s:if>
-
-
-
         <!-- start banner Area -->
         < <section class="banner-area relative about-banner" id="home">	
             <div class="overlay overlay-bg"></div>
@@ -68,48 +64,48 @@
                     <strong>¡<s:property value="estado"/>!</strong> <s:property value="mensaje"/>.
                 </div>
             </s:if>     
-            <form class="generic-blockquote" action="registrar" method="post" id="registro">               
+            <form class="generic-blockquote" action="actualizaruserL" method="post" id="registro">  
+                <h4 class="mb-10">Perfil de Usuario</h4>
+                
+
                 <div class="mt-10">
-                    <input type="text" name="nombre1" placeholder="Primer Nombre" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primer Nombre'" required class="single-input" style="border:0.5px solid black">
+                    <input type="text" placeholder="Primer Nombre" value="<s:property value="#user.perfil.descripcion"/>" required class="single-input" readonly="" style="border:0.5px solid black">
+                    <input type="hidden" name="idperfil" value="<s:property value="#user.idperfil"/>"/>                        
+                </div>                
+                <div class="mt-10">
+                    <input type="text" name="nombre1" placeholder="Primer Nombre" value="<s:property value="#user.nombre1"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primer Nombre'" required class="single-input" style="border:0.5px solid black">
                 </div>                
 
                 <div class="mt-10">
-                    <input type="text" name="nombre2" placeholder="Segundo Nombres" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Segundo Nombre'" class="single-input" style="border:0.5px solid black">
+                    <input type="text" name="nombre2" placeholder="Segundo Nombres" value="<s:property value="#user.nombre2"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Segundo Nombre'" class="single-input" style="border:0.5px solid black">
                 </div>                
 
                 <div class="mt-10">
-                    <input type="text" name="apellido1" placeholder="Primer Apellido" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primer Apellido'" required class="single-input" style="border:0.5px solid black">
+                    <input type="text" name="apellido1" placeholder="Primer Apellido" value="<s:property value="#user.apellido1"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primer Apellido'" required class="single-input" style="border:0.5px solid black">
                 </div>                
                 <div class="mt-10">
-                    <input type="text" name="apellido2" placeholder="Segundo Apellido" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Segundo Apellido'" required class="single-input" style="border:0.5px solid black">
+                    <input type="text" name="apellido2" placeholder="Segundo Apellido" value="<s:property value="#user.apellido2"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Segundo Apellido'" required class="single-input" style="border:0.5px solid black">
                 </div>                
                 <div class="mt-10">
-                    <input type="email" name="email" placeholder="Correo" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo'" required class="single-input required" style="border:0.5px solid black" id="correo">
-                    <label class="error" style="display: none" id="userError"><strong>Correo ya se encuentra registrado</strong></label>
+                    <input type="email" name="email" placeholder="Correo" value="<s:property value="#user.email"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Correo'" required class="single-input" style="border:0.5px solid black">
                 </div>
 
                 <div class="mt-10">
-                    <input type="password" name="pclave" placeholder="Contraseña" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contraseña'" required class="single-input required" style="border:0.5px solid black" id="pclave">
-                </div>
-
-                <div class="mt-10">
-                    <input type="password" class="single-input required" name="clave" placeholder="Repite Contraseña"    style="border:0.5px solid black" id="clave">
-                </div>
-
-                <div class="mt-10">
-                    <input type="text" name="direccion" placeholder="Direccion" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Direccion'" required class="single-input" style="border:0.5px solid black">
+                    <input type="text" name="direccion" placeholder="Direccion" value="<s:property value="#user.direccion"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Direccion'" required class="single-input" style="border:0.5px solid black">
                 </div>  
 
                 <div class="mt-10">
-                    <input type="text" name="telefono" placeholder="Telefono" onfocus="this.placeholder = ''" onblur="this.placeholder = Telefono'" class="single-input" style="border:0.5px solid black">
+                    <input type="text" name="telefono" placeholder="Telefono" value="<s:property value="#user.telefono"/>" onfocus="this.placeholder = ''" onblur="this.placeholder = Telefono'" class="single-input" style="border:0.5px solid black">
                 </div>  
+
+                <input type="hidden" name="idusuario" value="<s:property value="#user.idusuario"/>"/>
 
                 <br>
                 <div class="form-group">
-                    <input type="submit" class="genric-btn primary circle" value="Registrarse" id="boton">
+                    <input type="submit" name="submit" class="genric-btn primary circle" value="Actualizar Usuario">
                 </div>
 
-                <input type="hidden" name="idperfil" value="2"/>
+
             </form>
 
         </div>

@@ -2,8 +2,7 @@
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html class="no-js">
-    <head>
-        <s:set name="user" value="#session['usuario']"/>
+    <head>         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,52 +34,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>	
-        <header id="header">
-            <div class="header-top">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center">
-                        <div class="col-md-4 col-4 header-top-left no-padding">
-                            <a href="mailto:support@colorlib.com"><span class="lnr lnr-location"></span></a>
-                            <a class="contact-texts" href="mailto:support@colorlib.com">support@colorlib.com</a>		
-                        </div>
-                        <div class="col-md-4 col-4 header-top-bottom no-padding">
-                            <a href="index.jsp"><img class="img-fluid" src="img/logo.png" alt="" title="" /></a>			
-                        </div>                      
-
-                        <div class="col-md-4 col-4 header-top-right no-padding">
-                            <s:if test="#user!=null">
-                                <a class="contact-texts" href="logout.jsp">Cerrar Sesión</a>
-                                <a href="logout.jsp"><span class="lnr lnr-arrow-left-circle"></span></a>
-                                </s:if>
-                                <s:else>
-                                <a class="contact-texts" href="login.jsp">Iniciar Sesión</a>
-                                <a href="login.jsp"><span class="lnr lnr-arrow-right-circle"></span></a>
-                                </s:else>
-
-
-                        </div>
-                    </div>			  					
-                </div>
-            </div>
-            <div class="container main-menu">
-                <div class="row align-items-center justify-content-center">	
-                    <nav id="nav-menu-container">
-                        <ul class="nav-menu">
-                            <li class="menu-active"><a href="index.jsp">Inicio</a></li>
-                            <li><a href="index.jsp">Acerca de</a></li>
-                            <li><a href="services.jsp">servicios</a></li>
-                            <li><a href="index.jsp">Entrenadores</a></li>
-                            <li><a href="index.jsp">Contactos</a></li>
-                                <s:if test="#user!=null">
-                                <li><a href="#">Hola, <s:property value="#user.nombre"/></a></li>
-                                <li><a href="#">Perfil: <s:property value="#user.perfil.descripcion"/></a></li>
-                                </s:if>
-
-                        </ul>
-                    </nav><!-- #nav-menu-container -->		
-                </div>
-            </div>
-        </header><!-- #header -->
+      <jsp:include page="header.jsp"/>
 
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">

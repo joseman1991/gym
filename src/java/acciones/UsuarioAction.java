@@ -31,12 +31,15 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
     private final List<Perfiles> listaPerfiles;
     private final PerfilesDAO pdao;
 
+    private String estado;
+    private String style;
+
     public UsuarioAction() {
         usuario = new Usuarios();
         session = ServletActionContext.getRequest().getSession();
         listaUsuarios = new ArrayList<>();
         listaPerfiles = new ArrayList<>();
-        uDAO = new UsuarioDAO(listaUsuarios);
+        uDAO = new UsuarioDAO();
         pdao = new PerfilesDAO();
     }
 
@@ -53,43 +56,129 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String insertarUsuario() {
         try {
-            int result = uDAO.insertarUsuario(usuario);
-             pdao.obtenerLista(listaPerfiles);
+            Usuarios user = (Usuarios) session.getAttribute("usuario");
+            int result = uDAO.insertarRegistro(usuario);
+            pdao.obtenerLista(listaPerfiles);
             if (result > 0) {
-                mensaje = "Usuario registrado con éxito";
+                if (user == null) {
+                    mensaje = "Usuario registrado con éxito, tu cuenta será activada por un administrador. Se notificará al correo " + usuario.getEmail();
+                } else {
+                    mensaje = "Usuario registrado con éxito, puedes activarlo en el panel de administracion";
+                }
+                style = "alert-success";
+                estado = "Satisfactorio";
                 return SUCCESS;
             } else {
                 mensaje = "Ha ocurrido un error inesperado";
                 return ERROR;
             }
         } catch (SQLException e) {
-            mensaje = e.getMessage();
+            if (e.getSQLState().equals("23000")) {
+                mensaje = "El correo "+ usuario.getEmail()+" ya se encuentra registrado";
+            } else {
+                mensaje = e.getMessage();
+            }
+            style = "alert-danger";
+            estado = "Error";
             return ERROR;
         } finally {
             uDAO.cerrarConexion();
         }
     }
 
+    public String buscarUsers() {
+        try {
+            String busca = usuario.getNombre1() + "%";
+            usuario.setNombre1(busca);
+            usuario.setNombre2(busca);
+            usuario.setApellido1(busca);
+            usuario.setApellido2(busca);
+            usuario.setEmail(busca);
+            usuario.setTelefono(busca);
+            uDAO.buscar(listaUsuarios, usuario);
+            return SUCCESS;
+        } catch (SQLException e) {
+            style = "alert-warning";
+            estado = "Algo salió mál";
+            mensaje = e.getMessage();
+            return ERROR;
+        }
+    }
+
+    public String actualizarUser() {
+        try {
+            Usuarios u = new Usuarios();
+            int idestado = usuario.getIdestado();
+            if (idestado > 0) {
+                usuario = uDAO.obtenerRegistro(usuario);
+                usuario.setIdestado(idestado);
+            } else {
+
+                u.setIdusuario(usuario.getIdusuario());
+                u = uDAO.obtenerRegistro(u);
+                usuario.setIdestado(u.getIdestado());
+            }
+            System.out.println(usuario.getFullname());
+            System.out.println(usuario.getIdusuario());
+            int resultado = uDAO.actualizarRegistro(usuario);
+            if (resultado > 0) {
+                if (idestado == 1) {
+                    mensaje = "Usuario " + usuario.getFullname() + " activado";
+                    usuario.setIdestado(2);
+                } else if (idestado >= 2) {
+                    mensaje = "Usuario " + usuario.getFullname() + " desactivado";
+                    usuario.setIdestado(1);
+                } else {
+                    mensaje = "Usuario " + usuario.getFullname() + " actualizado";
+                }
+                style = "alert-success";
+                estado = "Satisfactorio";
+                if (u.getIdusuario() == u.getIdusuario()) {
+                    usuario = uDAO.obtenerRegistro(usuario);
+                    session.setAttribute("usuario", usuario);
+                    return "userlog";
+                } else {
+                    uDAO.obtenerLista(listaUsuarios, usuario);
+
+                }
+
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return SUCCESS;
+    }
+
     public String actualizarUsuario() {
         try {
-            int result = uDAO.actualizarUsuario(usuario);
-            if (result > 0) {
-                usuario = uDAO.obtenerUsusario(usuario);
-                if (usuario != null) {
-                    Usuarios u = (Usuarios) session.getAttribute("usuario");
-                    if (u != null) {
-                        if (u.getIdusuario() == usuario.getIdusuario()) {
-                            session.setAttribute("usuario", usuario);
-                        }
-                    }
-                    mensaje = "Usuario actualizado";
-                    return SUCCESS;
+            if (usuario.getClave().equals(usuario.getAclave())) {
+                style = "alert-danger";
+                estado = "ERROR";
+                mensaje = "La clave nueva no puede ser igual a la antigua";
+                return ERROR;
+            }
+            Usuarios user = new Usuarios();
+            user.setIdusuario(usuario.getIdusuario());
+            user.setClave(usuario.getAclave());
+            user = uDAO.obtenerUser(user);
+            if (user.getNombre1() != null) {
+                int result = uDAO.actualizarClave(usuario);
+                if (result > 0) {
+                    style = "alert-success";
+                    estado = "Satisfactorio";
+                    mensaje = "Cantraseña cambiada correctamente";
                 } else {
-                    mensaje = "Ha ocurrido un error";
+                    style = "alert-danger";
+                    estado = "ERROR";
+                    mensaje = "Ocurrió un error mientras se actualizaba";
                     return ERROR;
                 }
+                return SUCCESS;
             } else {
-                mensaje = "Ha ocurrido un error inesperado";
+                style = "alert-danger";
+                estado = "ERROR";
+                mensaje = "Cantraseña antigua no coicide";
                 return ERROR;
             }
         } catch (SQLException e) {
@@ -102,13 +191,14 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String login() {
         try {
-
-            usuario = uDAO.obtenerUsusario(usuario);
-            if (usuario != null) {
+            usuario = uDAO.login(usuario);
+            if (usuario.getNombre1() != null) {
                 session.setAttribute("usuario", usuario);
                 return SUCCESS;
             } else {
-                mensaje = "Error de credenciales";
+                style = "alert-danger";
+                estado = "Error";
+                mensaje = "Datos de acceso incorrectos";
                 return ERROR;
             }
         } catch (SQLException e) {
@@ -121,12 +211,13 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String obtenerUsuarios() {
         try {
-            usuario = (Usuarios) session.getAttribute("usuario");
-
-            if (usuario != null) {
-                uDAO.obtenerLista(usuario);
+            Usuarios user = (Usuarios) session.getAttribute("usuario");
+            if (user != null) {
+                uDAO.obtenerLista(listaUsuarios, usuario);
                 return SUCCESS;
             } else {
+                style = "alert-danger";
+                estado = "Lo sentimos";
                 mensaje = "No tienes permiso para ver esta página";
                 return ERROR;
             }
@@ -140,9 +231,17 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String obtenerUsuario() {
         try {
-            usuario = uDAO.obtenerUsusario(usuario.getIdusuario());
-            pdao.obtenerLista(listaPerfiles);
-            return SUCCESS;
+            Usuarios user = (Usuarios) session.getAttribute("usuario");
+            if (user != null) {
+                usuario = uDAO.obtenerRegistro(usuario);
+                pdao.obtenerLista(listaPerfiles);
+                return SUCCESS;
+            } else {
+                style = "alert-danger";
+                estado = "Lo sentimos";
+                mensaje = "No tienes permiso para ver esta página";
+                return ERROR;
+            }
         } catch (SQLException e) {
             mensaje = e.getMessage();
             return ERROR;
@@ -150,10 +249,10 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
             uDAO.cerrarConexion();
         }
     }
-    
+
     public String obteneruser() {
         try {
-            usuario = uDAO.obtenerUsusario(usuario.getEmail());             
+            usuario = uDAO.obtenerUsuariosEmail(usuario);
             return SUCCESS;
         } catch (SQLException e) {
             mensaje = e.getMessage();
@@ -165,7 +264,7 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String obtenerUsuario2() {
         try {
-            usuario = uDAO.obtenerUsusario(usuario.getIdusuario());
+            usuario = uDAO.obtenerRegistro(usuario);
             mensaje = "Usuario actualizado";
             return SUCCESS;
         } catch (SQLException e) {
@@ -203,6 +302,22 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public List<Perfiles> getListaPerfiles() {
         return listaPerfiles;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 
 }
