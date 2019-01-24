@@ -53,50 +53,52 @@ create table usuarios(
 -- -----------------------------------------------------------------
 -- -----------------------------------------------------------------
 insert into usuarios values(0,'root','root','Sin','Entranador','','','Dir','Tel',3,1);
+insert into usuarios values(default,'leoAdmin@gmail.com','12345','LEO','Admin','L','L','Dir','Tel',1,1);
 insert into usuarios values(default,'leoCliente@gmail.com','12345','LEO','Cliente','L','L','Dir','Tel',2,1);
 insert into usuarios values(default,'leoEntrenador@gmail.com','12345','LEO','Entrenador','L','L','Dir','Tel',3,1);
 
 select * from usuarios;
 
-create table periodo(
+create table periodos(
  idperiodo int not null primary key,
  descripcion varchar(20) not null,
  precio float not null
 );
 
 -- ---------------------------------------------
-insert into periodo values(1,'DIARIO',1.5);
-insert into periodo values(2,'SEMANAL',5.00);
-insert into periodo values(3,'MENSUAL',15.00);
+insert into periodos values(1,'DIARIO',1.5);
+insert into periodos values(2,'SEMANAL',5.00);
+insert into periodos values(3,'MENSUAL',15.00);
 
 -- -------------------------------------------------
 
 create table rutinas(
  idrutina int not null primary key,
- descripcion varchar(50)
+ descripcion varchar(50),
+ adicional float not null
 ); 
 
-insert into rutinas values(1,'EJERCICIO DE FUERZA');
-insert into rutinas values(2,'BAJAR DE PESO');
-insert into rutinas values(3,'AUMENTAR  MASA MUSCULAR');
+insert into rutinas values(1,'EJERCICIO DE FUERZA',0);
+insert into rutinas values(2,'BAJAR DE PESO',20);
+insert into rutinas values(3,'AUMENTAR  MASA MUSCULAR',30);
 
 -- -------------------------------------------------------------
 
 create table entrenamiento(
- identrenamiento int not null,
+ identrenamiento int not null primary key auto_increment,
  idrutina int not null,
  identrenador int not null default 0,
  idcliente int not null,
  precio float not null,
- idestado int not null,
- saldo float not null,
- abono float not null,
+ idestado int not null default 4,
+ saldo float not null default 0,
+ abono float not null default 0,
  idperiodo int not null,
- fechainicio date ,
- fechafin date ,
+ fechainicio date,
+ fechafin date,
  constraint fk_entrenamiento_estados foreign key (idestado) references estados(idestado) 
  on update cascade on delete restrict, 
- constraint fk_entrenamiento_periodo foreign key (idperiodo) references periodo(idperiodo) 
+ constraint fk_entrenamiento_periodo foreign key (idperiodo) references periodos(idperiodo) 
  on update cascade on delete restrict 
 );
  

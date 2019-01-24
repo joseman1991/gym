@@ -13,6 +13,7 @@ public class Rutinas {
     
     private int idrutina;
     private String descripcion;
+    private float adicional;
 
     public int getIdrutina() {
         return idrutina;
@@ -28,6 +29,14 @@ public class Rutinas {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public float getAdicional() {
+        return adicional;
+    }
+
+    public void setAdicional(float adicional) {
+        this.adicional = adicional;
     }
     
     

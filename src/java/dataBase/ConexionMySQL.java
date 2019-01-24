@@ -279,6 +279,7 @@ public class ConexionMySQL<T extends Object> implements ModelDAO<T> {
                 lista.add(dato2);
             }
         } catch (IllegalAccessException | IllegalArgumentException | NoSuchMethodException | InvocationTargetException | SQLException | InstantiationException e) {
+            System.out.println(e.getMessage());
             nombreMetodo = Thread.currentThread().getStackTrace()[1].getMethodName();
             System.out.println(nombreMetodo);
         }

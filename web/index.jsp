@@ -51,8 +51,7 @@
                         </p>
                         <s:if test="#user==null">
                             <a href="registro.jsp" class="primary-btn">Hazte miembro</a>
-                        </s:if>                         
-
+                        </s:if>
                     </div>										
                 </div>
             </div>					

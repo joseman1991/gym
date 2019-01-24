@@ -28,7 +28,7 @@ public class UsuarioDAO extends ConexionMySQL<Usuarios> {
         cerrarConexion();
         return usuario;
     }
-    
+
     public Usuarios obtenerUser(Usuarios usuario) throws SQLException {
         campos = "idusuario,nombre1,nombre2,apellido1,apellido2";
         camposCondicion = "idusuario,clave";
@@ -78,7 +78,15 @@ public class UsuarioDAO extends ConexionMySQL<Usuarios> {
         super.obtenerLista(lista, dato);
         cerrarConexion();
     }
-    
+
+    public void obtenerListaEntrenadores(List<Usuarios> lista, Usuarios dato) throws SQLException {
+        campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
+        camposCondicion = "idperfil,idusuario";
+        condicion = "where idperfil=? and idusuario>?";
+        super.obtenerLista(lista, dato);
+        cerrarConexion();
+    }
+
     public void buscar(List<Usuarios> lista, Usuarios dato) throws SQLException {
         campos = "idusuario,email,nombre1,nombre2,apellido1,apellido2,direccion,telefono,idperfil,idestado";
         camposCondicion = "idestado, email, nombre1,nombre2, apellido1, apellido2,telefono";
@@ -102,12 +110,10 @@ public class UsuarioDAO extends ConexionMySQL<Usuarios> {
         return result;
     }
 
-    
-
     public int actualizarClave(Usuarios registro) throws SQLException {
         campos = "clave";
         camposCondicion = "idusuario";
-        condicion = "where idusuario=?";        
+        condicion = "where idusuario=?";
         int result = super.actualizarRegistro(registro);
         cerrarConexion();
         return result;

@@ -18,6 +18,7 @@
         
         <action name="actualizaruser" class="acciones.UsuarioAction" method="actualizarUser">
             <result name="success">listausuarios.jsp</result>
+            <result name="userlog">listausuarios.jsp</result>
             <result name="error">error.jsp</result>            
         </action>
         

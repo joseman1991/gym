@@ -19,19 +19,24 @@ public class RutinasDAO extends ConexionMySQL<Rutinas> {
         tipo = Rutinas.class;
     }
 
+    
+    
+    
+    
+
     @Override
     public Rutinas obtenerRegistro(Rutinas dato) throws SQLException {
-        campos = "idrutina,descripcion";
+        campos = "idrutina,descripcion,adicional";
         camposCondicion = "idrutina";
         condicion = "where idrutina=?";
-        dato = super.obtenerRegistro(dato); 
+        dato = super.obtenerRegistro(dato);
         cerrarConexion();
         return dato;
     }
 
     @Override
     public void obtenerLista(List<Rutinas> lista) throws SQLException {
-        campos = "idrutina,descripcion";
+        campos = "idrutina,descripcion,adicional";
         camposCondicion = "";
         condicion = "";
         super.obtenerLista(lista);

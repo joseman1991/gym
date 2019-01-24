@@ -23,12 +23,15 @@ public class Entrenamiento {
     private float saldo;
     private float abono;
     private int idperiodo;
-    private Date fechainicio;
-    private Date fechafin;
+    private Date fechainici;
+    private String fechainicio;
+    private Date fechafi;
+    private String fechafin;
     private Rutinas rutina;
     private Usuarios cliente;
     private Usuarios entrenador;
     private Periodos periodo;
+    private Estados estados;
 
     public int getIdentrenamiento() {
         return identrenamiento;
@@ -83,7 +86,10 @@ public class Entrenamiento {
         return idestado;
     }
 
-    public void setIdestado(int idestado) {
+    public void setIdestado(int idestado) throws SQLException {
+        this.estados = new Estados();
+        this.estados.setIdestado(idestado);
+        estados = new EstadoDAO().obtenerRegistro(estados);
         this.idestado = idestado;
     }
 
@@ -114,20 +120,12 @@ public class Entrenamiento {
         periodo = new PeriodoDAO().obtenerRegistro(periodo);
     }
 
-    public Date getFechainicio() {
-        return fechainicio;
+    public Date getFechainici() {
+        return fechainici;
     }
 
-    public void setFechainicio(Date fechainicio) {
-        this.fechainicio = fechainicio;
-    }
-
-    public Date getFechafin() {
-        return fechafin;
-    }
-
-    public void setFechafin(Date fechafin) {
-        this.fechafin = fechafin;
+    public Date getFechafi() {
+        return fechafi;
     }
 
     public Rutinas getRutina() {
@@ -160,6 +158,36 @@ public class Entrenamiento {
 
     public void setPeriodo(Periodos periodo) {
         this.periodo = periodo;
+    }
+
+    public Estados getEstados() {
+        return estados;
+    }
+
+    public void setEstados(Estados estados) {
+        this.estados = estados;
+    }
+
+    public String getFechainicio() {
+        return fechainicio;
+    }
+
+    public void setFechainicio(String fechainicio) {
+        this.fechainicio = fechainicio;
+        if (fechainicio != null) {
+            fechainici = Date.valueOf(fechainicio);
+        }
+    }
+
+    public String getFechafin() {
+        return fechafin;
+    }
+
+    public void setFechafin(String fechafin) {
+        this.fechafin = fechafin;
+        if (fechafin != null) {
+            fechafi = Date.valueOf(fechafin);
+        }
     }
 
 }

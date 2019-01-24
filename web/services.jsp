@@ -58,6 +58,18 @@
 
         <!-- Start offred Area -->
         <section class="offred-area section-gap">
+            <s:url action="fuerza" var="fuerza">
+                <s:param name="idrutina" value="1"/>
+            </s:url>
+            
+            <s:url action="peso" var="peso">
+                <s:param name="idrutina" value="2"/>
+            </s:url>
+            
+            <s:url action="musculo" var="musculo">
+                <s:param name="idrutina" value="3"/>
+            </s:url>
+            
             <div class="container">
                 <div class="row section-title">
                     <h1>Nos importa lo que ofrecemos.</h1>
@@ -67,7 +79,7 @@
                     <div class="col-lg-4">
                         <div class="single-offred">
                             <img class="img-fluid" src="img/o1.jpg" alt="">
-                            <a href="#"><h4>Ejercicio de Fuerza</h4></a>
+                            <s:a href="%{fuerza}"><h4>Ejercicio de Fuerza</h4></s:a>
                             <p>
                                 Rutinas diarias
                             </p>
@@ -76,7 +88,7 @@
                     <div class="col-lg-4">
                         <div class="single-offred">
                             <img class="img-fluid" src="img/o2.jpg" alt="">
-                            <a href="#"><h4>Bajar de peso</h4></a>
+                            <s:a href="%{peso}"><h4>Bajar de peso</h4></s:a>
                             <p>
                                 Dieta y fitness
                             </p>
@@ -85,7 +97,7 @@
                     <div class="col-lg-4">
                         <div class="single-offred">
                             <img class="img-fluid" src="img/o3.jpg" alt="">
-                            <a href="#"><h4>Aumentar masa muscular</h4></a>
+                            <s:a href="%{musculo}"><h4>Aumentar masa muscular</h4></s:a>
                             <p>
                                 Proteínas y ejercicios
                             </p>
@@ -100,7 +112,7 @@
 
 
         <!-- Start top-course Area -->
-    
+
         <!-- End top-course Area -->		
 
         <!-- Start testomial Area -->

@@ -56,9 +56,9 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
 
     public String insertarUsuario() {
         try {
+            pdao.obtenerLista(listaPerfiles);
             Usuarios user = (Usuarios) session.getAttribute("usuario");
             int result = uDAO.insertarRegistro(usuario);
-            pdao.obtenerLista(listaPerfiles);
             if (result > 0) {
                 if (user == null) {
                     mensaje = "Usuario registrado con éxito, tu cuenta será activada por un administrador. Se notificará al correo " + usuario.getEmail();
@@ -74,7 +74,7 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
             }
         } catch (SQLException e) {
             if (e.getSQLState().equals("23000")) {
-                mensaje = "El correo "+ usuario.getEmail()+" ya se encuentra registrado";
+                mensaje = "El correo " + usuario.getEmail() + " ya se encuentra registrado";
             } else {
                 mensaje = e.getMessage();
             }
@@ -133,7 +133,7 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuarios
                 }
                 style = "alert-success";
                 estado = "Satisfactorio";
-                if (u.getIdusuario() == u.getIdusuario()) {
+                if (u.getIdusuario() == usuario.getIdusuario()) {
                     usuario = uDAO.obtenerRegistro(usuario);
                     session.setAttribute("usuario", usuario);
                     return "userlog";

@@ -30,7 +30,7 @@
         </action>
         
         <action name="listausers" class="acciones.UsuarioAction" method="obtenerUsuarios">
-            <result name="success">listausuarios.jsp</result>
+            <result name="success">listausuarios.jsp</result>            
             <result name="error">login.jsp</result>
         </action>
         
@@ -43,6 +43,72 @@
             <result name="success">actualizalog.jsp</result>
             <result name="error">login.jsp</result>
         </action>
+        
+        <action name="fuerza" class="acciones.RutinaAction" method="obtenerRutina">
+            <result name="success">entrenamiento.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        <action name="peso" class="acciones.RutinaAction" method="obtenerRutina">
+            <result name="success">entrenamiento.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        <action name="musculo" class="acciones.RutinaAction" method="obtenerRutina">
+            <result name="success">entrenamiento.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+        
+        <action name="registroentrenamiento" class="acciones.EntrenamientoAction" method="insertarEntrenamiento">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="listaentrena" class="acciones.EntrenamientoAction" method="obtenerEntrenamientos">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="listaentrena2" class="acciones.EntrenamientoAction" method="obtenerEntrenamientos2">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="listaestudiantes" class="acciones.EntrenamientoAction" method="obtenerEstudiantes">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="activar" class="acciones.EntrenamientoAction" method="prepararActualizacion">
+            <result name="success">actualizarent.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="activar2" class="acciones.EntrenamientoAction" method="prepararActualizacion">
+            <result name="success">abonarEntre.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="entrenandor" class="acciones.EntrenamientoAction" method="prepararActualizacion">
+            <result name="success">entrenandor.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="abona" class="acciones.EntrenamientoAction" method="activarEntrenamiento">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="abona2" class="acciones.EntrenamientoAction" method="abonarEntrenamiento">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
+        <action name="setentrandor" class="acciones.EntrenamientoAction" method="setEntrenador">
+            <result name="success">listaentrenamientos.jsp</result>
+            <result name="error">entrenamiento.jsp</result>
+        </action>
+        
         
     </package>
 </struts>
