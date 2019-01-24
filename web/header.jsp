@@ -1,7 +1,7 @@
 <%-- 
     Document   : header
     Created on : 23-ene-2019, 7:03:06
-    Author     : JOSE
+    Author     : 
 --%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -50,7 +50,6 @@
                                 <a href="login.jsp"><span class="lnr lnr-arrow-right-circle"></span></a>
                                 </s:else>
                         </div>
-
                     </div>			  					
                 </div>
             </div>
@@ -58,21 +57,65 @@
                 <div class="row align-items-center justify-content-center">	
                     <nav id="nav-menu-container">
                         <ul class="nav-menu">
-                            <li class="menu-active"><a href="index.jsp">Inicio</a></li>                           
-                            <li><a href="services.jsp">Servicios</a></li>
-                            <li class="menu-has-children"><a href="#">Usuarios</a>
-                                <ul>
-                                    <li><a href="registroAdmin">Registrar usuarios</a></li>
-                                    <li><a href="clave.jsp">Cambiar clave</a></li>
-                                    <li class="menu-has-children"><a href="#">Panel de Administración</a>
-                                        <ul>
-                                            <li><a href="activos">Lista de Usuarios Activos</a></li>
-                                            <li><a href="inactivos">Lista de usuarios Inactivos</a></li>
+                            <li class="menu-active"><a href="index.jsp">Inicio</a></li>       
+                                <s:if test="#user.idperfil==2">
+                                <li><a href="services.jsp">Servicios</a></li>
+                                </s:if>
+
+                            <s:if test="#user!=null">
+                                <li class="menu-has-children"><a href="#">Usuarios</a>
+                                    <ul>
+                                        <li><a href="clave.jsp">Cambiar clave</a></li>
+
+                                        <s:if test="#user.idperfil==1">
+                                            <li><a href="registroAdmin">Registrar usuarios</a></li>  
+                                            <li class="menu-has-children"><a href="#">Panel de Administración</a>
+                                                <ul>
+                                                    <li><a href="activos">Lista de Usuarios Activos</a></li>
+                                                    <li><a href="inactivos">Lista de usuarios Inactivos</a></li>
+                                                </ul>
+                                            </li>
+                                        </s:if>
+                                    </ul>
+                                </li>
+
+                            </s:if>
+
+
+                            <s:if test="#user.idperfil==1 || #user.idperfil==2">
+                                <li class="menu-has-children"><a href="#">Lista de emtrenamientos</a>
+                                    <ul>
+                                        <s:if test="#user.idperfil==2">
+                                            <s:url action="listaentrena2" var="listaentrena2">
+                                                <s:param name="idcliente" value="#user.idusuario"></s:param>
+                                            </s:url>
+                                            <li><s:a href="%{listaentrena2}">Estado de compras</s:a></li>
+                                            </s:if>
+                                            <s:else>
+                                                <s:url action="listaentrena" var="listaentrena">
+                                                    <s:param name="idestado" value="4"></s:param>
+                                                </s:url>
+                                            <li><s:a href="%{listaentrena}">Estado de compras</s:a></li>
+
+                                        </s:else>
+
+                                    </ul>
+                                </li>
+                            </s:if>
+
+
+                            <s:if test="#user.idperfil==3">
+                                <li class="menu-has-children"><a href="#">Mis estudiantes</a>
+                                    <ul>
+                                        <s:url action="listaestudiantes" var="listaestudiantes">
+                                            <s:param name="identrenador" value="#user.idusuario"></s:param>
+                                        </s:url>
+                                        <li><s:a href="%{listaestudiantes}">Lista de estudiantes</s:a></li>
                                         </ul>
-                                    </li>						              
-                                </ul>
-                            <li><a href="index.jsp">Entrenadores</a></li>
-                            <li><a href="index.jsp">Contactos</a></li>
+                                    </li>
+                            </s:if>
+
+                           
                         </ul>
                     </nav><!-- #nav-menu-container -->		
                 </div>
