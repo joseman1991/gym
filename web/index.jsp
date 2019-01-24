@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>	
-      <jsp:include page="header.jsp"/>
+        <jsp:include page="header.jsp"/>
 
         <!-- start banner Area -->
         <section class="banner-area relative" id="home">
@@ -49,12 +49,9 @@
                         <p class="pt-10 pb-10 text-white">
                             El gimnasio se encuentra en Jujan y tiene más de 30 máquinas. Con 13 remontes de última generación y una selección de opciones tanto para fisiculturistas como para deportistas.
                         </p>
-                        <s:if test="#user!=null">
-
-                        </s:if>
-                        <s:else>
+                        <s:if test="#user==null">
                             <a href="registro.jsp" class="primary-btn">Hazte miembro</a>
-                        </s:else>
+                        </s:if>                         
 
                     </div>										
                 </div>
@@ -63,77 +60,11 @@
         <!-- End banner Area -->	
 
         <!-- Start top-course Area -->
-        <section class="top-course-area section-gap">
-            <div class="container">
-                <div class="row section-title">
-                    <h1>Los mejores cursos que se ofrecen</h1>
-                    <p>Mientras viertes el primer vaso de tu Chianti favorito.</p>
-                </div>	
-                <div class="row">
-                    <div class="active-topcourse-carusel">
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c1.jpg" alt="">
-                                <div class="join-btn"><a href="#">Únete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Músculo específico del objetivo.</h4>
-                                </a>
-                                <h4 class="price">$275</h4>
-                            </div>
-                        </div>
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c2.jpg" alt="">
-                                <div class="join-btn"><a href="#">Únete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Levantamiento de pesas</h4>
-                                </a>
-                                <h4 class="price">$200</h4>
-                            </div>
-                        </div>
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c3.jpg" alt="">
-                                <div class="join-btn"><a href="#">Únete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Flexiona tu musculo</h4>
-                                </a>
-                                <h4 class="price">$225</h4>
-                            </div>
-                        </div>	
-
-                    </div>
-                </div>
-            </div>	
-        </section>
+    
         <!-- End top-course Area -->
 
         <!-- Start cta Area -->
-        <section class="cta-area">
-            <div class="container-fluid">
-                <div class="row no-padding">
-                    <div class="col-lg-6 single-cta cta1 no-padding section-gap relative">
-                        <div class="overlay overlay-bg"></div>
-                        <h6 class=text-uppercase>Reservar una cita</h6>
-                        <h1>Ponte en forma ahora</h1>
-                        <a href="#" class="primary-btn">Reservar ahora</a>
-                    </div>
-                    <div class="col-lg-6 single-cta cta2 no-padding section-gap relative">
-                        <div class="overlay overlay-bg"></div>
-                        <h6 class=text-uppercase>Reservar una cita</h6>
-                        <h1>Ponte en forma ahora</h1>
-                        <a href="#" class="primary-btn">Reservar ahora</a>			
 
-                    </div>
-                </div>
-            </div>	
-        </section>
         <!-- End cta Area -->
 
         <!-- Start feature Area -->
@@ -173,37 +104,7 @@
         <!-- End feature Area -->
 
         <!-- Start calculation Area -->
-        <section class="aclculation-area section-gap relative">
-            <div class="overlay overlay-bg"></div>				
-            <div class="container">
-                <div class="row section-title relative">
-                    <h1 class="text-white">Calcule su índice de masa corporal</h1>
-                    <p class="text-white">Formulario</p>
-                </div>					
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-3 title-row">
-                        <p class="text-white">Su altura (pulgadas)</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" name="height" placeholder="Ingrese el valor" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese el valor '" >
-                    </div>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" name="height" placeholder="Ingrese el valor" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese el valor '" >
-                    </div>					
-                </div>
-                <div class="row justify-content-center align-items-center pt-30">
-                    <div class="col-lg-3 title-row">
-                        <p class="text-white">Su Peso (Ibs)</p>
-                    </div>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" name="height" placeholder="Ingrese el valor" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingrese el valor '" >
-                    </div>
-                    <div class="col-lg-3">
-                        <a href="#" class="primary-btn">Calcule su IMC</a>
-                    </div>							
-                </div>
-            </div>	
-        </section>
+
         <!-- End calculation Area -->
 
         <!-- Start image-gallery Area -->
@@ -244,7 +145,9 @@
                         <p>
                             Te esperamos
                         </p>
-                        <a href="#" class="primary-btn">Hazte Miembro</a>				
+                        <s:if test="#user==null">
+                            <a href="registro.jsp" class="primary-btn">Hazte miembro</a>
+                        </s:if>  				
                     </div>
                 </div>
             </div>	

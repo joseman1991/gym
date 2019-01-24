@@ -67,7 +67,7 @@
                     <div class="col-lg-4">
                         <div class="single-offred">
                             <img class="img-fluid" src="img/o1.jpg" alt="">
-                            <a href="#"><h4>Ejejrcicio regular</h4></a>
+                            <a href="#"><h4>Ejercicio de Fuerza</h4></a>
                             <p>
                                 Rutinas diarias
                             </p>
@@ -100,55 +100,7 @@
 
 
         <!-- Start top-course Area -->
-        <section class="top-course-area section-gap">
-            <div class="container">
-                <div class="row section-title">
-                    <h1>Los mejores cursos que se ofrecen</h1>
-                    <p>Mientras viertes el primer vaso de tu Chianti favorito.</p>
-                </div>	
-                <div class="row">
-                    <div class="active-topcourse-carusel">
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c1.jpg" alt="">
-                                <div class="join-btn"><a href="registro.jsp">Únete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Músculo específico del objetivo.</h4>
-                                </a>
-                                <h4 class="price">$275</h4>
-                            </div>
-                        </div>
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c2.jpg" alt="">
-                                <div class="join-btn"><a href="#">Ãnete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Levantamiento de pesas</h4>
-                                </a>
-                                <h4 class="price">$200</h4>
-                            </div>
-                        </div>
-                        <div class="single-carusel item">
-                            <div class="thumb">
-                                <img class="img-fluid" src="img/c3.jpg" alt="">
-                                <div class="join-btn"><a href="#">Ãnete ahora</a></div>
-                            </div>
-                            <div class="title-price d-flex justify-content-between">
-                                <a href="#">
-                                    <h4>Flexiona tu musculo</h4>
-                                </a>
-                                <h4 class="price">$225</h4>
-                            </div>
-                        </div>	
-
-                    </div>
-                </div>
-            </div>	
-        </section>
+    
         <!-- End top-course Area -->		
 
         <!-- Start testomial Area -->
